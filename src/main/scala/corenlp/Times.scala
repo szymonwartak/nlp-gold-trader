@@ -40,6 +40,6 @@ object TimesNLP extends StatsUtils with FileUtils {
   val SEP = "\t"
   val colnames = List("Very positive", "Positive", "Neutral", "Negative", "Very negative")
   val res = (FileInfo.FIELDS ::: colnames).mkString(SEP) :: sentiments.map(d => (FileInfo.process(d._1) ::: d._2.tableTsv(colnames)).mkString(SEP)).toList
-  res.writeToFile(basedir+"sentiment.tsv")
+  res.writeToFile(DATA_DIR+"nytimes-sentiment.tsv")
 
 }
