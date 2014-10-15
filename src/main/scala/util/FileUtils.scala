@@ -2,7 +2,8 @@ package util
 
 import java.io.PrintWriter
 
-object FileUtils {
+trait FileUtils {
+  val DATA_DIR = "/Users/Szymon/Dropbox/dev/gold/data/"
 
   implicit class FileWriter(data: Iterable[String]) {
     def writeToFile(filename: String) {

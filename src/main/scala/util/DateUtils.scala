@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 class DateFormat(df: String) { def get = df }
 
-object DateUtils {
+trait DateUtils {
   implicit class DateRange(dateStr: String) {
     val MILLIS_IN_DAY = 1000 * 60 * 60 * 24
     lazy val date = DateTime.parse(dateStr)

@@ -1,31 +1,22 @@
 import dispatch.classic._
-import util.DateFormat
-import util.FileUtils._
+import util.{JsonUtils, DateUtils, FileUtils, DateFormat}
 import spray.json._
 import DefaultJsonProtocol._ // if you don't supply your own Protocol (see below)
-import util.DateUtils._
 
-object Gold extends App {
-  implicit class JsonObject(value: JsValue) {
-    def \(fieldName: String): JsValue = value.asJsObject.fields.getOrElse(fieldName, JsString("-"))
-    def asInt = value.toString.replaceAll("\"","").toInt
-    def asString = value.toString.replaceAll("\"","")
-    def asLong = value.toString.replaceAll("\"","").toLong
-  }
 
+object Gold extends App with FileUtils with DateUtils with JsonUtils {
   implicit val DATE_FORMAT = new DateFormat("yyyyMMdd")
 
-  val basedir = "/Users/Szymon/Dropbox/dev/gold/data/"
+  val basedir = DATA_DIR+"nytimes/"
   val urlF = "http://query.nytimes.com/search/sitesearch/#/*/from%sto%s/articles/1/allauthors/relevance/%s/"
   val h = new Http
 
-  ("2014-09-06" ->> "2014-09-30").foreach { date =>
+  ("2014-01-01" ->> "2014-07-31").foreach { date =>
   //  val date = "20140101"
     println(date)
     List("world", "business").foreach { section =>
       //  val section = "world"
       val json = getPageJson(date, section)
-      List(json.prettyPrint).writeToFile(basedir+"%s-%s.json".format(date, section))
       val res = extractFields(json)
 
       val totalArticles = json \ "meta" \ "results_estimated_total"

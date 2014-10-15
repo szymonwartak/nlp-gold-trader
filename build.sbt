@@ -12,6 +12,8 @@ libraryDependencies ++= Seq(
   "joda-time" % "joda-time" % "2.5",
   "org.joda" % "joda-convert" % "1.7",
   "net.databinder" %% "dispatch-http" % "0.8.10",
-  "io.spray" %%  "spray-json" % "1.3.0"
+  "io.spray" %%  "spray-json" % "1.3.0",
+  "edu.stanford.nlp" % "stanford-corenlp" % "3.4.1",
+  "edu.stanford.nlp" % "stanford-corenlp" % "3.4.1" classifier "models"
 )
 
